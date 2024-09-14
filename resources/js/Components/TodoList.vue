@@ -55,7 +55,7 @@ function saveEdit(todo) {
                     v-model="todo.title"
                     @keyup.enter="saveEdit(todo)"
                     @keyup.esc="editingId = null"
-                    class="flex-1 p-0 text-base input input-sm focus:outline-none focus:border-none"
+                    class="flex-1 w-full p-0 text-base input input-sm focus:outline-none focus:border-none"
                 />
                 <span v-else :class="{ 'line-through': todo.completed }">
                     {{ todo.title }}
@@ -64,13 +64,13 @@ function saveEdit(todo) {
             <div class="flex items-center gap-2" v-if="editingId === todo.id">
                 <button
                     @click="saveEdit(todo)"
-                    class="text-info hover:bg-info hover:border-info btn btn-outline btn-sm"
+                    class="btn btn-outline btn-info btn-sm"
                 >
                     Save
                 </button>
                 <button
                     @click="editingId = null"
-                    class="text-error hover:bg-error hover:border-error btn btn-outline btn-sm"
+                    class="btn btn-outline btn-error btn-sm"
                 >
                     Cancel
                 </button>
@@ -78,13 +78,13 @@ function saveEdit(todo) {
             <div class="flex items-center gap-2" v-else>
                 <button
                     @click="startEdit(todo.id)"
-                    class="text-info hover:bg-info hover:border-info btn btn-outline btn-sm"
+                    class="btn btn-outline btn-info btn-sm"
                 >
                     Edit
                 </button>
                 <button
                     @click="router.delete(route('todos.destroy', todo))"
-                    class="text-error hover:bg-error hover:border-error btn btn-outline btn-sm"
+                    class="btn btn-outline btn-error btn-sm"
                 >
                     Delete
                 </button>
