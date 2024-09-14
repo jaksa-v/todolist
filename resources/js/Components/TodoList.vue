@@ -1,9 +1,31 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
+import { ref, nextTick } from "vue";
 
 defineProps({
     todos: Array,
 });
+
+const editingId = ref(null);
+const editInputRef = ref(null);
+
+function startEdit(id) {
+    editingId.value = id;
+    nextTick(() => {
+        editInputRef.value[0]?.focus();
+    });
+}
+
+function saveEdit(todo) {
+    editingId.value = null;
+
+    router.patch(
+        route("todos.update", {
+            todo,
+            title: todo.title,
+        })
+    );
+}
 </script>
 
 <template>
@@ -27,16 +49,46 @@ defineProps({
                         )
                     "
                 />
-                <span :class="{ completed: todo.completed }">{{
-                    todo.title
-                }}</span>
+                <input
+                    v-if="editingId === todo.id"
+                    ref="editInputRef"
+                    v-model="todo.title"
+                    @keyup.enter="saveEdit(todo)"
+                    @keyup.esc="editingId = null"
+                    class="flex-1 text-base input input-bordered input-sm"
+                />
+                <span v-else :class="{ 'line-through': todo.completed }">
+                    {{ todo.title }}
+                </span>
             </label>
-            <button
-                @click="router.delete(route('todos.destroy', todo))"
-                class="text-error hover:bg-error hover:border-error btn btn-outline btn-sm"
-            >
-                Delete
-            </button>
+            <div class="flex items-center gap-2" v-if="editingId === todo.id">
+                <button
+                    @click="saveEdit(todo)"
+                    class="text-info hover:bg-info hover:border-info btn btn-outline btn-sm"
+                >
+                    Save
+                </button>
+                <button
+                    @click="editingId = null"
+                    class="text-error hover:bg-error hover:border-error btn btn-outline btn-sm"
+                >
+                    Cancel
+                </button>
+            </div>
+            <div class="flex items-center gap-2" v-else>
+                <button
+                    @click="startEdit(todo.id)"
+                    class="text-info hover:bg-info hover:border-info btn btn-outline btn-sm"
+                >
+                    Edit
+                </button>
+                <button
+                    @click="router.delete(route('todos.destroy', todo))"
+                    class="text-error hover:bg-error hover:border-error btn btn-outline btn-sm"
+                >
+                    Delete
+                </button>
+            </div>
         </li>
     </ul>
 </template>

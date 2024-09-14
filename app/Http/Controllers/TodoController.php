@@ -26,8 +26,15 @@ class TodoController extends Controller
 
     public function update(Request $request, Todo $todo)
     {
-        $request->validate(['completed' => 'boolean']);
-        $todo->update(['completed' => $request->completed]);
+        if ($request->has('title')) {
+            $request->validate(['title' => 'required']);
+            $todo->update(['title' => $request->title]);
+        }
+
+        if ($request->has('completed')) {
+            $request->validate(['completed' => 'boolean']);
+            $todo->update(['completed' => $request->completed]);
+        }
 
         return redirect()->back();
     }
