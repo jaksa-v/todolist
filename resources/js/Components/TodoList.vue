@@ -29,11 +29,11 @@ function saveEdit(todo) {
 </script>
 
 <template>
-    <ul class="flex flex-col gap-y-3">
+    <ul v-if="todos.length > 0" class="flex flex-col gap-y-3">
         <li
             v-for="todo in todos"
             :key="todo.id"
-            class="flex items-center gap-4 px-3 py-3 bg-base-100 rounded-btn"
+            class="flex items-center gap-4 px-3 py-3 border border-base-content/20 rounded-btn"
         >
             <label class="flex items-center flex-1 gap-3">
                 <input
@@ -55,7 +55,7 @@ function saveEdit(todo) {
                     v-model="todo.title"
                     @keyup.enter="saveEdit(todo)"
                     @keyup.esc="editingId = null"
-                    class="flex-1 text-base input input-bordered input-sm"
+                    class="flex-1 p-0 text-base input input-sm focus:outline-none focus:border-none"
                 />
                 <span v-else :class="{ 'line-through': todo.completed }">
                     {{ todo.title }}
@@ -91,4 +91,7 @@ function saveEdit(todo) {
             </div>
         </li>
     </ul>
+    <div v-else class="prose">
+        <p>No todos found! Type above to create some.</p>
+    </div>
 </template>

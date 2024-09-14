@@ -19,7 +19,7 @@ const newTodo = ref("");
         <input
             v-model="newTodo"
             placeholder="Add a new task"
-            class="w-full input"
+            class="w-full input input-bordered"
         />
         <button class="btn btn-primary">Add</button>
     </form>

@@ -13,19 +13,19 @@ defineProps({
     <Head title="My Todos" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-base-content">
-                My Inbox
-            </h2>
-        </template>
-
-        <div class="py-12">
+        <div class="py-16">
             <div
-                class="flex flex-col max-w-2xl mx-auto sm:px-6 lg:px-8 gap-y-4"
+                class="flex flex-col max-w-2xl mx-auto sm:px-6 lg:px-8 gap-y-8"
             >
-                <AddTodo />
+                <div class="prose">
+                    <h1>My Inbox</h1>
+                </div>
 
-                <TodoList :todos="todos" />
+                <div class="flex flex-col gap-y-4">
+                    <AddTodo />
+
+                    <TodoList :todos="todos" />
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>

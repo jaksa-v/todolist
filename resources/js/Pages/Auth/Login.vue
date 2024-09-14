@@ -72,7 +72,7 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="text-sm ms-2 text-neutral">Remember me</span>
+                    <span class="text-sm ms-2">Remember me</span>
                 </label>
             </div>
 
@@ -80,7 +80,7 @@ const submit = () => {
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="text-sm underline rounded-md text-neutral hover:text-accent-content focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    class="text-sm underline rounded-md hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 >
                     Forgot your password?
                 </Link>
