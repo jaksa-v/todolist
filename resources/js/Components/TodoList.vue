@@ -1,6 +1,6 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { ref, nextTick } from "vue";
+import { nextTick, ref } from "vue";
 
 defineProps({
     todos: Array,
@@ -23,29 +23,29 @@ function saveEdit(todo) {
         route("todos.update", {
             todo,
             title: todo.title,
-        })
+        }),
     );
 }
 </script>
 
 <template>
-    <ul v-if="todos.length > 0" class="flex flex-col gap-y-3">
+    <ul v-if="todos.length > 0" v-auto-animate class="flex flex-col gap-y-3">
         <li
             v-for="todo in todos"
             :key="todo.id"
-            class="flex items-center gap-4 px-3 py-3 border border-base-content/20 rounded-btn"
+            class="flex items-center gap-4 rounded-btn border border-base-content/20 px-3 py-3"
         >
-            <label class="flex items-center flex-1 gap-3">
+            <label class="flex flex-1 items-center gap-3">
                 <input
-                    type="checkbox"
-                    class="checkbox checkbox-primary"
                     :checked="todo.completed"
+                    class="checkbox-primary checkbox"
+                    type="checkbox"
                     @change="
                         router.patch(
                             route('todos.update', {
                                 todo,
                                 completed: !todo.completed,
-                            })
+                            }),
                         )
                     "
                 />
@@ -53,38 +53,38 @@ function saveEdit(todo) {
                     v-if="editingId === todo.id"
                     ref="editInputRef"
                     v-model="todo.title"
+                    class="input input-sm w-full flex-1 p-0 text-base focus:border-none focus:outline-none"
                     @keyup.enter="saveEdit(todo)"
                     @keyup.esc="editingId = null"
-                    class="flex-1 w-full p-0 text-base input input-sm focus:outline-none focus:border-none"
                 />
                 <span v-else :class="{ 'line-through': todo.completed }">
                     {{ todo.title }}
                 </span>
             </label>
-            <div class="flex items-center gap-2" v-if="editingId === todo.id">
+            <div v-if="editingId === todo.id" class="flex items-center gap-2">
                 <button
-                    @click="saveEdit(todo)"
                     class="btn btn-outline btn-info btn-sm"
+                    @click="saveEdit(todo)"
                 >
                     Save
                 </button>
                 <button
-                    @click="editingId = null"
                     class="btn btn-outline btn-error btn-sm"
+                    @click="editingId = null"
                 >
                     Cancel
                 </button>
             </div>
-            <div class="flex items-center gap-2" v-else>
+            <div v-else class="flex items-center gap-2">
                 <button
-                    @click="startEdit(todo.id)"
                     class="btn btn-outline btn-info btn-sm"
+                    @click="startEdit(todo.id)"
                 >
                     Edit
                 </button>
                 <button
-                    @click="router.delete(route('todos.destroy', todo))"
                     class="btn btn-outline btn-error btn-sm"
+                    @click="router.delete(route('todos.destroy', todo))"
                 >
                     Delete
                 </button>
