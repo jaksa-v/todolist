@@ -14,7 +14,7 @@ defineProps({
 <template>
     <Head title="My Todos" />
 
-    <div class="mx-auto flex max-w-2xl flex-col gap-y-8 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-2xl flex-col gap-y-8 sm:px-6 lg:px-8">
         <div class="prose">
             <h1>My Inbox</h1>
         </div>
