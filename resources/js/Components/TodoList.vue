@@ -101,8 +101,8 @@ function deleteTodo() {
     <div v-else class="prose">
         <p>No todos found! Type above to create some.</p>
     </div>
-    
-    <!-- Todo Deletion Modal -->
+
+    <!-- Deletion Modal -->
     <Modal
         :show="confirmingTodoDeletion !== null"
         @close="confirmingTodoDeletion = null"

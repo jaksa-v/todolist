@@ -20,22 +20,15 @@ const confirmUserDeletion = () => {
 };
 
 const deleteUser = () => {
-    console.log("Deleting user...");
-    console.log("Route:", route("profile.destroy"));
-    console.log("Form data:", form.data());
-
     form.delete(route("profile.destroy"), {
         preserveScroll: true,
         onSuccess: () => {
-            console.log("Delete successful");
             closeModal();
         },
         onError: (errors) => {
-            console.error("Delete failed:", errors);
             passwordInput.value.focus();
         },
         onFinish: () => {
-            console.log("Delete request finished");
             form.reset();
         },
     });
