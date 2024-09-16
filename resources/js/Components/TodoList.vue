@@ -1,6 +1,7 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import { nextTick, ref } from "vue";
+import Modal from "@/Components/Modal.vue";
 
 defineProps({
     todos: Array,
@@ -8,6 +9,7 @@ defineProps({
 
 const editingId = ref(null);
 const editInputRef = ref(null);
+const confirmingTodoDeletion = ref(null);
 
 function startEdit(id) {
     editingId.value = id;
@@ -25,6 +27,11 @@ function saveEdit(todo) {
             title: todo.title,
         }),
     );
+}
+
+function deleteTodo() {
+    router.delete(route("todos.destroy", confirmingTodoDeletion.value));
+    confirmingTodoDeletion.value = null;
 }
 </script>
 
@@ -84,7 +91,7 @@ function saveEdit(todo) {
                 </button>
                 <button
                     class="btn btn-outline btn-error btn-sm"
-                    @click="router.delete(route('todos.destroy', todo))"
+                    @click="confirmingTodoDeletion = todo"
                 >
                     Delete
                 </button>
@@ -94,4 +101,26 @@ function saveEdit(todo) {
     <div v-else class="prose">
         <p>No todos found! Type above to create some.</p>
     </div>
+    
+    <!-- Todo Deletion Modal -->
+    <Modal
+        :show="confirmingTodoDeletion !== null"
+        @close="confirmingTodoDeletion = null"
+    >
+        <div class="p-6">
+            <h2 class="text-lg font-medium">
+                Are you sure you want to delete this todo?
+            </h2>
+
+            <div class="mt-6 flex justify-end gap-4">
+                <button class="btn" @click="confirmingTodoDeletion = null">
+                    Cancel
+                </button>
+
+                <button class="btn btn-error" @click="deleteTodo">
+                    Delete Todo
+                </button>
+            </div>
+        </div>
+    </Modal>
 </template>

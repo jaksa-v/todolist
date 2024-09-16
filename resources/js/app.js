@@ -18,9 +18,9 @@ createInertiaApp({
         ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
-            .use(autoAnimatePlugin)
             .use(plugin)
             .use(ZiggyVue)
+            .use(autoAnimatePlugin)
             .mount(el);
     },
     progress: {

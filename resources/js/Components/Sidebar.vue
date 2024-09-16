@@ -1,5 +1,9 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import Modal from "@/Components/Modal.vue";
+import { ref } from "vue";
+
+const confirmingLogout = ref(false);
 </script>
 
 <template>
@@ -36,14 +40,7 @@ import { Link } from "@inertiajs/vue3";
                     </Link>
                 </li>
                 <li>
-                    <Link
-                        :href="route('logout')"
-                        as="button"
-                        method="post"
-                        type="button"
-                    >
-                        Logout
-                    </Link>
+                    <button @click="confirmingLogout = true">Logout</button>
                 </li>
             </ul>
         </div>
@@ -51,5 +48,30 @@ import { Link } from "@inertiajs/vue3";
         <div>Categories</div>
         <div class="divider" />
         <div>Tags</div>
+
+        <!-- Logout Modal -->
+        <Modal :show="confirmingLogout" @close="confirmingLogout = false">
+            <div class="p-6">
+                <h2 class="text-lg font-medium">
+                    Are you sure you want to log out?
+                </h2>
+
+                <div class="mt-6 flex justify-end gap-4">
+                    <button class="btn" @click="confirmingLogout = null">
+                        Cancel
+                    </button>
+
+                    <Link
+                        :href="route('logout')"
+                        as="button"
+                        class="btn btn-primary"
+                        method="post"
+                        type="button"
+                    >
+                        Logout
+                    </Link>
+                </div>
+            </div>
+        </Modal>
     </div>
 </template>

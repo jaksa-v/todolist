@@ -1,9 +1,7 @@
 <script setup>
-import DangerButton from "@/Components/DangerButton.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Modal from "@/Components/Modal.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 import { nextTick, ref } from "vue";
@@ -22,11 +20,24 @@ const confirmUserDeletion = () => {
 };
 
 const deleteUser = () => {
+    console.log("Deleting user...");
+    console.log("Route:", route("profile.destroy"));
+    console.log("Form data:", form.data());
+
     form.delete(route("profile.destroy"), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset(),
+        onSuccess: () => {
+            console.log("Delete successful");
+            closeModal();
+        },
+        onError: (errors) => {
+            console.error("Delete failed:", errors);
+            passwordInput.value.focus();
+        },
+        onFinish: () => {
+            console.log("Delete request finished");
+            form.reset();
+        },
     });
 };
 
@@ -50,7 +61,9 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <button class="btn btn-error" @click="confirmUserDeletion">
+            Delete Account
+        </button>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
@@ -84,19 +97,16 @@ const closeModal = () => {
                     <InputError :message="form.errors.password" class="mt-2" />
                 </div>
 
-                <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal">
-                        Cancel</SecondaryButton
-                    >
+                <div class="mt-6 flex justify-end gap-4">
+                    <button class="btn" @click="closeModal">Cancel</button>
 
-                    <DangerButton
-                        :class="{ 'opacity-25': form.processing }"
+                    <button
                         :disabled="form.processing"
-                        class="ms-3"
+                        class="btn btn-error"
                         @click="deleteUser"
                     >
                         Delete Account
-                    </DangerButton>
+                    </button>
                 </div>
             </div>
         </Modal>
