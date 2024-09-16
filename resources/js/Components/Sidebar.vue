@@ -1,7 +1,18 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import Modal from "@/Components/Modal.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
+
+const userInitials = computed(() => {
+    if (!user.value || !user.value.name) return "JD"; // Fallback
+    const nameParts = user.value.name.split(" ");
+    const initials = nameParts.map((part) => part[0]).join("");
+    return initials;
+});
 
 const confirmingLogout = ref(false);
 </script>
@@ -12,11 +23,11 @@ const confirmingLogout = ref(false);
     >
         <div class="flex items-center gap-x-4">
             <img
+                :src="`https://ui-avatars.com/api/?name=${userInitials}`"
                 alt="avatar"
                 class="h-8 w-8 rounded-full"
-                src="https://ui-avatars.com/api/?name=John+Doe"
             />
-            <span>John Doe</span>
+            <span>{{ user.name }}</span>
         </div>
         <div>
             <ul class="menu px-0">
