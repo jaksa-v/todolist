@@ -15,7 +15,7 @@ defineProps({
     <AuthenticatedLayout>
         <div class="py-16">
             <div
-                class="flex flex-col max-w-2xl mx-auto sm:px-6 lg:px-8 gap-y-8"
+                class="mx-auto flex max-w-2xl flex-col gap-y-8 sm:px-6 lg:px-8"
             >
                 <div class="prose">
                     <h1>My Inbox</h1>
