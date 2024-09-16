@@ -1,23 +1,16 @@
 <script setup>
 import ThemeSwitcher from "@/Components/ThemeSwitcher.vue";
-import { Link } from "@inertiajs/vue3";
+import Sidebar from "@/Components/Sidebar.vue";
 </script>
 
 <template>
-    <div class="min-h-screen">
-        <div class="absolute flex top-4 right-4 gap-x-6">
-            <Link
-                :href="route('logout')"
-                method="post"
-                as="button"
-                type="button"
-                >Logout</Link
-            >
-
+    <div class="flex min-h-screen">
+        <div class="absolute right-4 top-4 flex gap-x-6">
             <ThemeSwitcher />
         </div>
+        <Sidebar />
         <!-- Page Content -->
-        <main class="px-6 sm:px-0">
+        <main class="flex-1 px-6 sm:px-0">
             <slot />
         </main>
     </div>

@@ -4,6 +4,8 @@ import { Head } from "@inertiajs/vue3";
 import TodoList from "@/Components/TodoList.vue";
 import AddTodo from "@/Components/AddTodo.vue";
 
+defineOptions({ layout: AuthenticatedLayout });
+
 defineProps({
     todos: Array,
 });
@@ -12,21 +14,15 @@ defineProps({
 <template>
     <Head title="My Todos" />
 
-    <AuthenticatedLayout>
-        <div class="py-16">
-            <div
-                class="mx-auto flex max-w-2xl flex-col gap-y-8 sm:px-6 lg:px-8"
-            >
-                <div class="prose">
-                    <h1>My Inbox</h1>
-                </div>
-
-                <div class="flex flex-col gap-y-4">
-                    <AddTodo />
-
-                    <TodoList :todos="todos" />
-                </div>
-            </div>
+    <div class="mx-auto flex max-w-2xl flex-col gap-y-8 py-16 sm:px-6 lg:px-8">
+        <div class="prose">
+            <h1>My Inbox</h1>
         </div>
-    </AuthenticatedLayout>
+
+        <div class="flex flex-col gap-y-4">
+            <AddTodo />
+
+            <TodoList :todos="todos" />
+        </div>
+    </div>
 </template>
