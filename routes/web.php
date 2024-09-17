@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/', [TodoController::class, 'store'])->name('todos.store');
     Route::patch('/{todo}', [TodoController::class, 'update'])->name('todos.update');
     Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
+
+    Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
 });
 
 Route::middleware('auth')->group(function () {

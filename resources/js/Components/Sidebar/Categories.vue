@@ -14,7 +14,10 @@ const categories = computed(() => page.props.categories);
 <template>
     <ul class="menu">
         <li v-for="category in categories" :key="category.id">
-            <Link :href="route('todos.index')" @click="closeDrawer">
+            <Link
+                :href="route('category.show', category.id)"
+                @click="closeDrawer"
+            >
                 {{ category.name }}
             </Link>
         </li>
