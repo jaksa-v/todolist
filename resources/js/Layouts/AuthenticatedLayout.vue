@@ -1,28 +1,21 @@
 <script setup>
 import ThemeSwitcher from "@/Components/ThemeSwitcher.vue";
-import { Link, usePage } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
-import Modal from "@/Components/Modal.vue";
+import Profile from "@/Components/Sidebar/Profile.vue";
+import Categories from "@/Components/Sidebar/Categories.vue";
 
 const page = usePage();
 
 const user = computed(() => page.props.auth.user);
 
 const isDrawerOpen = ref(false);
-const confirmingLogout = ref(false);
 
 function closeDrawer() {
     setTimeout(() => {
         isDrawerOpen.value = false;
     }, 200);
 }
-
-const userInitials = computed(() => {
-    if (!user.value || !user.value.name) return "JD"; // Fallback
-    const nameParts = user.value.name.split(" ");
-    const initials = nameParts.map((part) => part[0]).join("");
-    return initials;
-});
 </script>
 
 <template>
@@ -61,74 +54,14 @@ const userInitials = computed(() => {
                 ></label>
                 <div class="min-h-full w-80 bg-base-200 p-4 text-base-content">
                     <!-- Sidebar content here -->
-                    <div class="flex items-center gap-x-4 px-2">
-                        <img
-                            :src="`https://ui-avatars.com/api/?name=${userInitials}`"
-                            alt="avatar"
-                            class="h-8 w-8 rounded-full"
-                        />
-                        <span>{{ user.name }}</span>
-                    </div>
-                    <ul class="menu">
-                        <li>
-                            <Link
-                                :class="{
-                                    active: $page.component === 'Todos/Index',
-                                }"
-                                :href="route('todos.index')"
-                                @click="closeDrawer"
-                            >
-                                Inbox
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                :class="{
-                                    active: $page.component === 'Profile/Edit',
-                                }"
-                                :href="route('profile.edit')"
-                                @click="closeDrawer"
-                            >
-                                Profile Settings
-                            </Link>
-                        </li>
-                        <li>
-                            <button @click="confirmingLogout = true">
-                                Logout
-                            </button>
-                        </li>
-                    </ul>
+                    <Profile :closeDrawer="closeDrawer" />
                     <div class="divider" />
                     <div>Categories</div>
+                    <Categories :closeDrawer="closeDrawer" />
                     <div class="divider" />
                     <div>Tags</div>
                 </div>
             </div>
         </div>
-
-        <!-- Logout Modal -->
-        <Modal :show="confirmingLogout" @close="confirmingLogout = false">
-            <div class="p-6">
-                <h2 class="text-lg font-medium">
-                    Are you sure you want to log out?
-                </h2>
-
-                <div class="mt-6 flex justify-end gap-4">
-                    <button class="btn" @click="confirmingLogout = null">
-                        Cancel
-                    </button>
-
-                    <Link
-                        :href="route('logout')"
-                        as="button"
-                        class="btn btn-primary"
-                        method="post"
-                        type="button"
-                    >
-                        Logout
-                    </Link>
-                </div>
-            </div>
-        </Modal>
     </div>
 </template>
