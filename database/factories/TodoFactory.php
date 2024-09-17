@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Todo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Todo>
+ * @extends Factory<Todo>
  */
 class TodoFactory extends Factory
 {
@@ -19,6 +21,7 @@ class TodoFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
+            'category_id' => $this->faker->numberBetween(1, Category::count()),
             'completed' => false,
             'user_id' => 1,
         ];
