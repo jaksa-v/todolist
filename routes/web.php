@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
 
     Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
+    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 });
 
 Route::middleware('auth')->group(function () {
