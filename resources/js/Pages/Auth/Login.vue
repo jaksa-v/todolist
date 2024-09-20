@@ -43,15 +43,15 @@ const submit = () => {
 
                 <TextInput
                     id="email"
-                    type="email"
-                    class="block w-full mt-1"
                     v-model="form.email"
-                    required
-                    autofocus
                     autocomplete="username"
+                    autofocus
+                    class="mt-1 block w-full"
+                    required
+                    type="email"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError :message="form.errors.email" class="mt-2" />
             </div>
 
             <div class="mt-4">
@@ -59,36 +59,42 @@ const submit = () => {
 
                 <TextInput
                     id="password"
-                    type="password"
-                    class="block w-full mt-1"
                     v-model="form.password"
-                    required
                     autocomplete="current-password"
+                    class="mt-1 block w-full"
+                    required
+                    type="password"
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
-            <div class="block mt-4">
+            <div class="mt-4 flex items-center justify-between">
                 <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="text-sm ms-2">Remember me</span>
+                    <Checkbox v-model:checked="form.remember" name="remember" />
+                    <span class="ms-2 text-sm">Remember me</span>
                 </label>
+                <Link
+                    :href="route('register')"
+                    class="rounded-md text-sm underline hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                    Don't have an account?
+                </Link>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4 flex items-center justify-end">
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="text-sm underline rounded-md hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    class="rounded-md text-sm underline hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                     Forgot your password?
                 </Link>
 
                 <PrimaryButton
-                    class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
+                    class="ms-4"
                 >
                     Log in
                 </PrimaryButton>
