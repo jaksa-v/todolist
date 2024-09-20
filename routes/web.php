@@ -16,7 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/{todo}', [TodoController::class, 'update'])->name('todos.update');
     Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
 
-    Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+    Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 });
 
 Route::middleware('auth')->group(function () {

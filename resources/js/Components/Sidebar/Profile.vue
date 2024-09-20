@@ -33,17 +33,6 @@ const userInitials = computed(() => {
         <li>
             <Link
                 :class="{
-                    active: page.component === 'Todos/Index',
-                }"
-                :href="route('todos.index')"
-                @click="closeDrawer"
-            >
-                Inbox
-            </Link>
-        </li>
-        <li>
-            <Link
-                :class="{
                     active: page.component === 'Profile/Edit',
                 }"
                 :href="route('profile.edit')"

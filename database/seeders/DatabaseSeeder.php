@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,12 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        User::first()->categories()->saveMany(Category::factory()->count(3)->make());
+        $user->categories()->createMany([
+            ['name' => 'Inbox'],
+            ['name' => 'Home'],
+            ['name' => 'Work'],
+        ]);
         User::first()->todos()->saveMany(Todo::factory()->count(10)->make());
     }
 }

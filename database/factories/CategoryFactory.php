@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class CategoryFactory extends Factory
 {
@@ -13,8 +14,11 @@ class CategoryFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->word();
+
         return [
-            'name' => $this->faker->word(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             //            'color' => $this->faker->word(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

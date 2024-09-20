@@ -15,7 +15,7 @@ const categories = computed(() => page.props.categories);
     <ul class="menu">
         <li v-for="category in categories" :key="category.id">
             <Link
-                :href="route('category.show', category.id)"
+                :href="route('category.show', category.slug)"
                 @click="closeDrawer"
             >
                 {{ category.name }}

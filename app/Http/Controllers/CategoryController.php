@@ -13,6 +13,7 @@ class CategoryController extends Controller
 
         return Inertia::render('Category/Index', [
             'category' => $category,
+            'todos' => $category->todos()->orderByDesc('created_at')->get(),
         ]);
     }
 }
