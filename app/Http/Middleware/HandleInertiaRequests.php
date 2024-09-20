@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'categories' => $request->user()->categories()->orderByDesc('created_at')->get(),
+            'categories' => $request->user() ? $request->user()->categories()->orderByDesc('created_at')->get() : null,
         ];
     }
 }
