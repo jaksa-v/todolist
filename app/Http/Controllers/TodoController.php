@@ -21,10 +21,10 @@ class TodoController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate(['title' => 'required']);
-        $request->user()->todos()->create(['title' => $request->title]);
+        $validated = $request->validate(['title' => 'required', 'category_id' => 'integer|exists:categories,id']);
+        $request->user()->todos()->create($validated);
 
-        return to_route('category.show', 'inbox');
+        return redirect()->back();
     }
 
     public function update(Request $request, Todo $todo): RedirectResponse

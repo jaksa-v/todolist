@@ -1,25 +1,29 @@
 <script setup>
-import { router } from "@inertiajs/vue3";
+import { router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const newTodo = ref("");
+
+const page = usePage();
+
+const category = page.props.category;
 </script>
 
 <template>
     <form
+        class="flex justify-center gap-3"
         @submit.prevent="
             router.post(
                 route('todos.store'),
-                { title: newTodo },
-                { onSuccess: () => (newTodo = '') }
+                { title: newTodo, category_id: category.id },
+                { onSuccess: () => (newTodo = '') },
             )
         "
-        class="flex justify-center gap-3"
     >
         <input
             v-model="newTodo"
+            class="input input-bordered w-full"
             placeholder="Add a new task"
-            class="w-full input input-bordered"
         />
         <button class="btn btn-primary">Add</button>
     </form>
