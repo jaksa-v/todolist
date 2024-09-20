@@ -24,7 +24,7 @@ class TodoController extends Controller
         $request->validate(['title' => 'required']);
         $request->user()->todos()->create(['title' => $request->title]);
 
-        return to_route('todos.index');
+        return to_route('category.show', 'inbox');
     }
 
     public function update(Request $request, Todo $todo): RedirectResponse

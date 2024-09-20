@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('todos.index', absolute: false));
+        return redirect(route('category.show', 'inbox', absolute: false));
     }
 
     /**

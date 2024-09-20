@@ -15,5 +15,5 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('todos.index', absolute: false));
+    $response->assertRedirect(route('category.show', 'inbox', absolute: false));
 });

@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('todos.index', absolute: false));
+        return redirect()->intended(route('category.show', 'inbox', absolute: false));
     }
 
     /**
