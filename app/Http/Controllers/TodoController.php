@@ -5,18 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class TodoController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(): RedirectResponse
     {
-        $todos = Todo::where('user_id', $request->user()->id)
-            ->orderByDesc('created_at')
-            ->get();
-
-        return Inertia::render('Todos/Index', ['todos' => $todos]);
+        return redirect()->route('category.show', 'inbox');
     }
 
     public function store(Request $request): RedirectResponse

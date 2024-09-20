@@ -11,7 +11,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    //    Route::get('/', [TodoController::class, 'index'])->name('todos.index');
+    Route::get('/', [TodoController::class, 'index'])->name('todos.index');
     Route::post('/', [TodoController::class, 'store'])->name('todos.store');
     Route::patch('/{todo}', [TodoController::class, 'update'])->name('todos.update');
     Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
